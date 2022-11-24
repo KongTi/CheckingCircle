@@ -35,6 +35,8 @@ except FileExistsError:
     pass
 
 for name in filelist:
+    if os.path.isdir(name):
+        break
     box_list = imageshow(filename=name)
 
     f = open(f"./cooTXT/{name.replace('.','_')}.txt",'w')
