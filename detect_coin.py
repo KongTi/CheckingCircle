@@ -52,7 +52,7 @@ class HoughImage():
 def imageshow(filename=None):
     window_name = str(filename)
     cv2.namedWindow(window_name,cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(winname=window_name, width=1280, height=720)
+    cv2.resizeWindow(winname=window_name, width=540, height=960)
 
     cv2.createTrackbar('blur',window_name,5,50,lambda pos:pos)
     cv2.createTrackbar('dp',window_name,11,20,lambda pos:pos)
