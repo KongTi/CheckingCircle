@@ -13,7 +13,7 @@ class HoughImage():
         self.width = self.img.shape[1]
         self.height = self.img.shape[0]
 
-    def detect(self, blurValue=5, dp=1, minDist=100, cany_max=200):
+    def detect(self, blurValue=5, dp=1, minDist=100, cany_max=200,box_padding=12):
 
         if blurValue % 2 == 0:
             blurValue += 1
@@ -34,9 +34,10 @@ class HoughImage():
 
         if circles is not None:
             circles = np.uint16(np.around(circles))
+            count = 0
 
             for i in circles[0,:]:
-                padding = i[2] + 10
+                padding = int(i[2] * box_padding/10.)
                 top = (i[0]-padding, i[1]-padding)
                 bottom = (i[0]+padding, i[1]+padding)
 
@@ -47,29 +48,33 @@ class HoughImage():
                 
                 # center point
                 cv2.circle(self.img, (i[0], i[1]), 2, (0,0,255), 5)
+                count += 1
+            print(count)
         return self.img, box_points
 
 def imageshow(filename=None):
     window_name = str(filename)
     cv2.namedWindow(window_name,cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(winname=window_name, width=540, height=960)
+    cv2.resizeWindow(winname=window_name, width=960, height=960)
 
     cv2.createTrackbar('blur',window_name,5,50,lambda pos:pos)
     cv2.createTrackbar('dp',window_name,11,20,lambda pos:pos)
     cv2.createTrackbar('minDist',window_name,100,200,lambda pos:pos)
     cv2.createTrackbar('cany_max',window_name,200,500,lambda pos:pos)
-    cv2.createTrackbar('resize',window_name,7,10,lambda pos:pos)
+    cv2.createTrackbar('img_resize',window_name,7,10,lambda pos:pos)
+    cv2.createTrackbar('box_padding',window_name,2,10,lambda pos:pos)
 
     while True:
         blur = cv2.getTrackbarPos('blur',window_name)
         dp = cv2.getTrackbarPos('dp',window_name)/10
         minDist = cv2.getTrackbarPos('minDist',window_name)
         cany_max = cv2.getTrackbarPos('cany_max',window_name)
-        resize = cv2.getTrackbarPos('resize',window_name)/10.
+        resize = cv2.getTrackbarPos('img_resize',window_name)/10.
+        box_padding = cv2.getTrackbarPos('box_padding',window_name)+10
 
         image = HoughImage(filename,resize)
 
-        detect, box = image.detect(blur, dp, minDist, cany_max)
+        detect, box = image.detect(blur, dp, minDist, cany_max,box_padding)
 
         cv2.imshow(window_name,detect)
 
