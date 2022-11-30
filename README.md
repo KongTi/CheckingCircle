@@ -1,6 +1,8 @@
 # CheckingCircle
 ### CoinMarket에서 사용될 동전 검출기 제작 &rarr; 데이터 전처리 용이
 
+Dataset: https://drive.google.com/file/d/16Fgq3WehqYCGK6ajRkxcioslKTzwNbo0/view?usp=sharing
+
 - #### Hough Transform을 통해서 사진의 edge를 검출하고 Box를 보여준다
 ***
 ### 기본적인 실행 방법
@@ -30,5 +32,7 @@
   `값이 낮을수록 부정확한 검출값이 높아짐 / 즉, 일반화가 제대로 안됨`
 - #### resize: 파일의 사이즈 조절
   `10이 원본 크기이며 1이 0.1배를 나타냄`
+- #### box_padding: Detect 박스의 크기 조절
+  `0이 원본이며 10은 2배`
 
 ![example](https://github.com/KongTi/CheckingCircle/blob/main/example.PNG)
