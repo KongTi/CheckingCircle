@@ -57,12 +57,12 @@ def imageshow(filename=None):
     cv2.namedWindow(window_name,cv2.WINDOW_NORMAL)
     cv2.resizeWindow(winname=window_name, width=960, height=960)
 
-    cv2.createTrackbar('blur',window_name,5,50,lambda pos:pos)
+    cv2.createTrackbar('blur',window_name,9,50,lambda pos:pos)
     cv2.createTrackbar('dp',window_name,11,20,lambda pos:pos)
-    cv2.createTrackbar('minDist',window_name,100,200,lambda pos:pos)
+    cv2.createTrackbar('minDist',window_name,200,200,lambda pos:pos)
     cv2.createTrackbar('cany_max',window_name,200,500,lambda pos:pos)
-    cv2.createTrackbar('img_resize',window_name,7,10,lambda pos:pos)
-    cv2.createTrackbar('box_padding',window_name,2,10,lambda pos:pos)
+    cv2.createTrackbar('img_resize',window_name,5,10,lambda pos:pos)
+    cv2.createTrackbar('box_padding',window_name,0,10,lambda pos:pos)
 
     while True:
         blur = cv2.getTrackbarPos('blur',window_name)
@@ -70,7 +70,7 @@ def imageshow(filename=None):
         minDist = cv2.getTrackbarPos('minDist',window_name)
         cany_max = cv2.getTrackbarPos('cany_max',window_name)
         resize = cv2.getTrackbarPos('img_resize',window_name)/10.
-        box_padding = cv2.getTrackbarPos('box_padding',window_name)+10
+        box_padding = cv2.getTrackbarPos('box_padding',window_name)+10.5
 
         image = HoughImage(filename,resize)
 

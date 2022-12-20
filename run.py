@@ -38,9 +38,9 @@ for name in filelist:
     if os.path.isdir(name):
         continue
     box_list = imageshow(filename=name)
-
-    f = open(f"./cooTXT/{name.replace('.','_')}.txt",'w')
+    filename, _ = os.path.splitext(name)
+    f = open(f"./cooTXT/{filename}.txt",'w')
 
     for box in box_list:
-        f.write("{} {} {} {}\n".format(*list(map(filtering,box))))
+        f.write("(ClassNum) {} {} {} {}\n".format(*list(map(filtering,box))))
     f.close()
